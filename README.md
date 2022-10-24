@@ -37,24 +37,22 @@ docker compose -f docker-compose.prod.yaml exec app bash
 npm run start:dev
 ```
 
-
-
 Use o arquivo `api.http` para testar a publicação usando a extensão Rest Client do VSCode ou outra ferramenta para brincar com o HTTP.
 
 
-# Comandos
-<!-- Build da imagem para RODUÇÃO [apenas para teste] -->
+## Comandos
+# Build da imagem para RODUÇÃO [apenas para teste]
 <!-- docker build -t nestjs-api -f Dockerfile.dev . -->
 docker build -t nestjs-api -f Dockerfile.prod .
 
-<!-- Verifica a criação de imagem recem criada -->
+# Verifica a criação de imagem recem criada
 docker image ls | grep nestjs-api
 
 
-<!-- Recompilar e rodar a aplicação -->
+# Recompilar e rodar a aplicação
 <!-- docker compose -f docker-compose.yaml up --build -->
 docker compose -f docker-compose.prod.yaml up --build
 
-<!-- Apenas rodar a aplicação -->
+# Rodar a aplicação
 <!-- docker compose -f docker-compose.yaml up -->
 docker compose -f docker-compose.prod.yaml up
