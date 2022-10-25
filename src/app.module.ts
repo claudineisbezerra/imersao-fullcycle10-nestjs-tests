@@ -23,7 +23,7 @@ import { TweetsModule } from './tweets/tweets.module';
 })
 export class AppModule {}
 
-// /tweets - CRUD
+//tweets - CRUD
 
 //Root - AppModule
 

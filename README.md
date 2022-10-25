@@ -64,7 +64,7 @@ docker image ls | grep nestjs-api
 # Recompilar e rodar a aplicação
 
 ```bash
-<!-- docker compose -f docker-compose.yaml up --build -->
+<!-- docker compose -f docker-compose.dev.yaml up --build -->
 
 docker compose -f docker-compose.prod.yaml up --build
 ```
@@ -72,7 +72,7 @@ docker compose -f docker-compose.prod.yaml up --build
 # Rodar a aplicação
 
 ```bash
-<!-- docker compose -f docker-compose.yaml up -->
+<!-- docker compose -f docker-compose.dev.yaml up -->
 
 docker compose -f docker-compose.prod.yaml up
 ```

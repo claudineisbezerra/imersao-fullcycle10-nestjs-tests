@@ -6,6 +6,6 @@
 .github/
 dist/
 node_modules/
-docker-compose.yaml
+docker-compose.dev.yaml
 Dockerfile.dev
 Dockerfile.prod
