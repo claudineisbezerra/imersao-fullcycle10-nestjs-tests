@@ -71,6 +71,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      # Step to run tests without push (Docker Image Deploy), targeting only 'testing' on Dockerfile.prod
       - name: Build for testing
         id: build-for-testing
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a

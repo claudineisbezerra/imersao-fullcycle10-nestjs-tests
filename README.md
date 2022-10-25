@@ -47,7 +47,7 @@ Use o arquivo `api.http` para testar a publicação usando a extensão Rest Clie
 - Monta exemplo uilizando o Google Artifact Registry / (GCR-Google Container Registry) e Google Cloud Run como
 - Container Registry.
 
-# Build da imagem para PRODUÇÃO [apenas para teste]
+# Build da imagem para PRODUÇÃO no ambiente local [apenas para teste]
 
 ```bash
 <!-- docker build -t nestjs-api -f Dockerfile.dev . -->
