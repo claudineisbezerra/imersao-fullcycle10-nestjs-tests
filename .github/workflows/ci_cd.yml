@@ -14,7 +14,7 @@ on:
     branches: ['master']
 
 env:
-  # Use docker.io for Docker Hub if empty
+  # Use docker.io for Docker Hub if empty GHCR - GitHub Container Registry
   #REGISTRY: ghcr.io
   REGISTRY: gcr.io
   IMAGE_NAME: nestsj-api/nest
