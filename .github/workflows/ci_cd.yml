@@ -20,7 +20,7 @@ env:
   IMAGE_NAME: nestsj-api/nest
   SERVICE: nest
   REGION: us-central1
-  #IMAGE_NAME: ${{ github.repository }}
+  # IMAGE_NAME: ${{ github.repository }}
   # github.repository as <account>/<repo>
 
 jobs:

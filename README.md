@@ -42,28 +42,37 @@ Use o arquivo `api.http` para testar a publicação usando a extensão Rest Clie
 
 ## Comandos
 
-# repositórios - Github Packages - Cada nova versão
+- Utiliza o Github Actions para disparar os gatilhos de CI/CD.
+- Monta exemplo utilizando o Github Packages como Container Registry.
+- Monta exemplo uilizando o Google Artifact Registry / (GCR-Google Container Registry) e Google Cloud Run como
+- Container Registry.
 
-# Utilizando Repositório de Imagens do Google - Google Artifact Registry (GCR-Google Container Registry)
+# Build da imagem para PRODUÇÃO [apenas para teste]
 
-# Build da imagem para RODUÇÃO [apenas para teste]
-
+```bash
 <!-- docker build -t nestjs-api -f Dockerfile.dev . -->
 
 docker build -t nestjs-api -f Dockerfile.prod .
+```
 
 # Verifica a criação de imagem recem criada
 
+```bash
 docker image ls | grep nestjs-api
+```
 
 # Recompilar e rodar a aplicação
 
+```bash
 <!-- docker compose -f docker-compose.yaml up --build -->
 
 docker compose -f docker-compose.prod.yaml up --build
+```
 
 # Rodar a aplicação
 
+```bash
 <!-- docker compose -f docker-compose.yaml up -->
 
 docker compose -f docker-compose.prod.yaml up
+```
