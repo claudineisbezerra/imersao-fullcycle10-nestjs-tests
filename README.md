@@ -52,6 +52,9 @@ Use o arquivo `api.http` para testar a publicação usando a extensão Rest Clie
 
 ```bash
 docker build -t nestjs-api -f Dockerfile.dev .
+docker ps -a | grep nestjs-api
+docker rm imersao-fullcycle10-nestjs-tests-mongo-express-1 imersao-fullcycle10-nestjs-tests-db-1
+
 docker image ls | grep nestjs-api
 docker rmi nestjs-api
 
@@ -69,8 +72,14 @@ docker image ls | grep nestjs-api
 ```bash
 docker compose -f docker-compose.dev.yaml down            #Destruir o ambiente
 docker compose -f docker-compose.dev.yaml up -d           #Subir o ambiente com terminal detachado
+docker compose -f docker-compose.dev.yaml up --build   #Subir o ambiente compilando a aplicação
 docker compose -f docker-compose.dev.yaml up -d --build   #Subir o ambiente com terminal detachado compilando a aplicação
 docker compose -f docker-compose.dev.yaml --profile development up --build #Cria o ambiente baseado em profile
+
+
+docker compose -f docker-compose.dev.yaml exec app bash
+npm run start:dev
+
 
 docker compose -f docker-compose.prod.yaml up
 docker compose -f docker-compose.prod.yaml up --build

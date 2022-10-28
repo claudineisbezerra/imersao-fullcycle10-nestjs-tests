@@ -3,12 +3,33 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Tweet, TweetSchema } from './entities/tweet.entity';
 import { TweetsService } from './tweets.service';
 
+// import { Injectable } from '@nestjs/common';
+// import { ConfigService } from '@nestjs/config';
+// @Injectable()
+// export class FeatureService {
+//   constructor(private readonly configService: ConfigService) {}
+
+//   someFunction(param: string) {
+//     const port = this.configService.get<number>('port');
+//   }
+
+//   someOtherFunction(param: string) {
+//     const pokemonAPIKey = this.configService.get<string>('pokemonService.apiKey');
+//   }
+// }
+
 describe('TweetsService', () => {
   let service: TweetsService;
   let module: TestingModule;
+  // let config: ConfigService;
+
+  // console.log(`app.module process.env.NODE_ENV: ${process.env.NODE_ENV}`);
+  // console.log(`app.module process.env.MONGO_DSN: ${process.env.MONGO_DSN}`);
 
   beforeEach(async () => {
-    const uri = `mongodb://root:root@db_prod:27017/tweets_service_test?authSource=admin`;
+    // const uri = `mongodb://root:root@db_prod:27017/tweets_service_test?authSource=admin`;
+    // const uri = `mongodb://root:root@db:27017/tweets_service_test?authSource=admin`;
+    const uri = `mongodb://root:root@localhost:27017/tweets_service_test?authSource=admin`;
     module = await Test.createTestingModule({
       imports: [
         MongooseModule.forRoot(uri),
@@ -49,6 +70,5 @@ describe('TweetsService', () => {
   it('should find one tweet', async () => {
     // criar um tweet
     // const tweet = await service.findOne();
-    
   });
 });

@@ -21,6 +21,7 @@ console.log(`app.module dir: ${dir}`);
         join(__dirname, '..', `.${process.env.NODE_ENV}.env`),
         // join(__dirname, '..', '.env'),
       ],
+      isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGO_DSN),
     TweetsModule,
