@@ -23,7 +23,11 @@
 		"octref.vetur",
 		"PKief.material-icon-theme",
 		"ritwickdey.LiveServer",
-		"vuetifyjs.vuetify-vscode"
+		"vuetifyjs.vuetify-vscode",
+		"johnpapa.vscode-peacock",
+		"pugbeautify.vscode-pugbeautify",
+		"firsttris.vscode-jest-runner",
+		"humao.rest-client"
 	]
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

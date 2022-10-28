@@ -19,23 +19,24 @@ Durante estas 3 aulas, mostramos como:
 ## Rodar a aplicação
 
 ```bash
-docker compose up # para levantar a versão de desenvolvimento
-```
+# para levantar a versão default
+docker compose up
 
-```bash
-docker compose -f docker-compose.prod.yaml up  # para levantar a versão de produção
+# para levantar a versão conforme o ambiente
+docker compose -f docker-compose.dev.yaml up --build
+docker compose -f docker-compose.prod.yaml up --build
 ```
 
 Entre no container do Nest.js para levantar o servidor WEB:
 
 ```bash
-# versão de desenvolvimento
-docker compose exec app bash
+# Acessar o container diretamente para CLI commands
+docker compose -f docker-compose.dev.yaml exec app bash
 npm run start:dev
 
 # versão de produção
 docker compose -f docker-compose.prod.yaml exec app bash
-npm run start:dev
+npm run start:prod
 ```
 
 Use o arquivo `api.http` para testar a publicação usando a extensão Rest Client do VSCode ou outra ferramenta para brincar com o HTTP.
@@ -50,7 +51,9 @@ Use o arquivo `api.http` para testar a publicação usando a extensão Rest Clie
 # Build da imagem para PRODUÇÃO no ambiente local [apenas para teste]
 
 ```bash
-<!-- docker build -t nestjs-api -f Dockerfile.dev . -->
+docker build -t nestjs-api -f Dockerfile.dev .
+docker image ls | grep nestjs-api
+docker rmi nestjs-api
 
 docker build -t nestjs-api -f Dockerfile.prod .
 ```
@@ -61,18 +64,14 @@ docker build -t nestjs-api -f Dockerfile.prod .
 docker image ls | grep nestjs-api
 ```
 
-# Recompilar e rodar a aplicação
+# Subir o ambiente e compilar a aplicação
 
 ```bash
-<!-- docker compose -f docker-compose.dev.yaml up --build -->
-
-docker compose -f docker-compose.prod.yaml up --build
-```
-
-# Rodar a aplicação
-
-```bash
-<!-- docker compose -f docker-compose.dev.yaml up -->
+docker compose -f docker-compose.dev.yaml down            #Destruir o ambiente
+docker compose -f docker-compose.dev.yaml up -d           #Subir o ambiente com terminal detachado
+docker compose -f docker-compose.dev.yaml up -d --build   #Subir o ambiente com terminal detachado compilando a aplicação
+docker compose -f docker-compose.dev.yaml --profile development up --build #Cria o ambiente baseado em profile
 
 docker compose -f docker-compose.prod.yaml up
+docker compose -f docker-compose.prod.yaml up --build
 ```

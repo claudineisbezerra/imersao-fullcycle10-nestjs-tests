@@ -16,8 +16,8 @@ services:
 
   db:
     image: mongo:6.0.2
-    profiles:
-      - dev
+    # profiles:
+    #   - development
     ports:
       - 27017:27017
     volumes:
@@ -39,8 +39,8 @@ services:
   
   mongo-express:
     image: mongo-express
-    profiles:
-      - dev
+    # profiles:
+    #   - development
     restart: always
     ports:
       - 8081:8081
