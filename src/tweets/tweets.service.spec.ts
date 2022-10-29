@@ -1,43 +1,30 @@
+import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Tweet, TweetSchema } from './entities/tweet.entity';
 import { TweetsService } from './tweets.service';
 
-// import { Injectable } from '@nestjs/common';
-// import { ConfigService } from '@nestjs/config';
-// @Injectable()
-// export class FeatureService {
-//   constructor(private readonly configService: ConfigService) {}
-
-//   someFunction(param: string) {
-//     const port = this.configService.get<number>('port');
-//   }
-
-//   someOtherFunction(param: string) {
-//     const pokemonAPIKey = this.configService.get<string>('pokemonService.apiKey');
-//   }
-// }
-
 describe('TweetsService', () => {
   let service: TweetsService;
   let module: TestingModule;
-  // let config: ConfigService;
-
-  // console.log(`app.module process.env.NODE_ENV: ${process.env.NODE_ENV}`);
-  // console.log(`app.module process.env.MONGO_DSN: ${process.env.MONGO_DSN}`);
+  let config: ConfigService;
 
   beforeEach(async () => {
     // const uri = `mongodb://root:root@db_prod:27017/tweets_service_test?authSource=admin`;
-    // const uri = `mongodb://root:root@db:27017/tweets_service_test?authSource=admin`;
-    const uri = `mongodb://root:root@localhost:27017/tweets_service_test?authSource=admin`;
+    const uri = `mongodb://root:root@db:27017/tweets_service_test?authSource=admin`;
+    // const uri = `mongodb://root:root@localhost:27017/tweets_service_test?authSource=admin`;
     module = await Test.createTestingModule({
       imports: [
         MongooseModule.forRoot(uri),
         MongooseModule.forFeature([{ name: Tweet.name, schema: TweetSchema }]),
       ],
-      providers: [TweetsService],
+      providers: [TweetsService, ConfigService],
     }).compile();
     service = module.get<TweetsService>(TweetsService);
+    config = module.get<ConfigService>(ConfigService);
+
+    const MONGO_DSN = config.get<string>('MONGO_DSN');
+    console.log(`BEFOREEACH MONGO_DSN: ${MONGO_DSN}`);
   });
 
   afterEach(async () => {
@@ -49,6 +36,9 @@ describe('TweetsService', () => {
   });
 
   it('should create a tweet', async () => {
+    const appPort = config.get<number>('APP_PORT', 3000);
+    console.log(`SPEC appPort: ${appPort}`);
+
     const tweet = await service.create({
       content: 'Hello World',
       screen_name: 'Luiz Carlos',

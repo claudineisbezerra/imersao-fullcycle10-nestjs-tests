@@ -17,7 +17,7 @@
     "test": "NODE_ENV=development jest",
     "test:watch": "NODE_ENV=development jest --watch",
     "test:cov": "NODE_ENV=development jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:debug": "NODE_ENV=development node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "NODE_ENV=development jest --config ./test/jest-e2e.json"
   },
   "dependencies": {

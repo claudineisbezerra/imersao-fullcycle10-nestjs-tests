@@ -17,12 +17,13 @@ describe('Tweet Tests', () => {
 
   //teste de integração - menos rapido e mais custoso que unitario
   describe('Using MongoDB', () => {
-    let conn: mongoose.Mongoose;
+    // const uri = `mongodb://root:root@db_prod:27017/tweets_entity_test?authSource=admin`;
+    const uri = `mongodb://root:root@db:27017/tweets_entity_test?authSource=admin`;
+    // const uri = `mongodb://root:root@localhost:27017/tweets_entity_test?authSource=admin`;
 
+    let conn: mongoose.Mongoose;
     beforeEach(async () => {
-      conn = await mongoose.connect(
-        `mongodb://root:root@db_prod:27017/tweets_entity_test?authSource=admin`,
-      );
+      conn = await mongoose.connect(uri);
     });
 
     afterEach(async () => {
