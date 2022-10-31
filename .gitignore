@@ -2,6 +2,12 @@
 /dist
 /node_modules
 
+# Env: Ignore all .env files except development.env and production.env
+**/*.env
+!config/env/.development.env
+!config/env/.production.env
+!config/env/.test.env
+
 # Logs
 logs
 *.log

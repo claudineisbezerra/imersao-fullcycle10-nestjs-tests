@@ -10,10 +10,14 @@ import {
 import { TweetsService } from './tweets.service';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('tweets')
 export class TweetsController {
-  constructor(private readonly tweetsService: TweetsService) {}
+  constructor(
+    private readonly tweetsService: TweetsService,
+    private configService: ConfigService,
+  ) {}
 
   @Post()
   create(@Body() createTweetDto: CreateTweetDto) {

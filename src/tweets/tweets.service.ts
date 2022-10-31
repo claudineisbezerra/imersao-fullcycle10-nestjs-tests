@@ -10,14 +10,11 @@ import { Tweet, TweetDocument } from './entities/tweet.entity';
 export class TweetsService {
   constructor(
     private configService: ConfigService,
-    @InjectModel(Tweet.name)
-    private tweetModel: Model<TweetDocument>,
+    @InjectModel(Tweet.name) private tweetModel: Model<TweetDocument>,
   ) {}
 
   async create(createTweetDto: CreateTweetDto) {
-    const appPort = this.configService.get<number>('APP_PORT', 3000);
-    console.log(`SERVICE appPort: ${appPort}`);
-
+    const appPort = this.configService.get<number>('PORT');
     const tweetDoc = new this.tweetModel(createTweetDto);
     await tweetDoc.save();
     return tweetDoc;

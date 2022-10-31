@@ -5,22 +5,20 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log(`bootstrap process.env.NODE_ENV: ${process.env.NODE_ENV}`);
-  console.log(`bootstrap process.env.MONGO_DSN: ${process.env.MONGO_DSN}`);
-
   const configService = app.get(ConfigService);
 
-  const appPort = configService.get<number>('APP_PORT', 3000);
-  console.log(`bootstrap appPort: ${appPort}`);
-
-  await app.listen(process.env.PORT ? parseInt(process.env.PORT) : 3000);
+  const appPort = configService.get<string>('APP_PORT');
+  await app.listen(appPort ? parseInt(appPort) : 3000);
 
   const stage = process.env.NODE_ENV;
+  const appHost = configService.get<string>('APP_HOST');
+
+  console.log('main NODE_ENV:', configService.get<string>('NODE_ENV'));
+  console.log('main DB_HOST:', configService.get<string>('DB_HOST'));
+  console.log('main DB_NAME:', configService.get<string>('DB_NAME'));
+
   Logger.log(
-    'App is running in "' +
-      stage +
-      '" stage, and it is listening at: http://localhost:' +
-      appPort,
+    `App is running in ${stage} stage, and it is listening at: http://${appHost}:${appPort}`,
   );
 }
 bootstrap();

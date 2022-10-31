@@ -72,7 +72,7 @@ docker image ls | grep nestjs-api
 ```bash
 docker compose -f docker-compose.dev.yaml down            #Destruir o ambiente
 docker compose -f docker-compose.dev.yaml up -d           #Subir o ambiente com terminal detachado
-docker compose -f docker-compose.dev.yaml up --build   #Subir o ambiente compilando a aplicação
+docker compose -f docker-compose.dev.yaml up --build      #Subir o ambiente compilando a aplicação
 docker compose -f docker-compose.dev.yaml up -d --build   #Subir o ambiente com terminal detachado compilando a aplicação
 docker compose -f docker-compose.dev.yaml --profile development up --build #Cria o ambiente baseado em profile
 
