@@ -1,9 +1,9 @@
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configuration } from '../../config/configuration';
+// import { ConfigModule, ConfigService } from '@nestjs/config';
+// import { configuration } from '../../../config/configuration';
 import mongoose from 'mongoose';
 import { Tweet, TweetSchema } from './tweet.entity';
-import { Test, TestingModule } from '@nestjs/testing';
-import { join } from 'path';
+// import { Test, TestingModule } from '@nestjs/testing';
+// import { join } from 'path';
 
 describe('Tweet Tests', () => {
   //Testes de unidade
@@ -21,33 +21,36 @@ describe('Tweet Tests', () => {
 
   //teste de integração com DB- menos rapido e mais custoso que unitario
   describe('Using MongoDB', () => {
-    let service: ConfigService;
+    // let service: ConfigService;
     let conn: mongoose.Mongoose;
+    // const uri = `mongodb://root:root@db:27017/tweets_entity_test?authSource=admin`;
+    const uri = `mongodb://root:root@db_prod:27017/tweets_entity_test?authSource=admin`;
 
     beforeEach(async () => {
-      const moduleRef: TestingModule = await Test.createTestingModule({
-        imports: [
-          ConfigModule.forRoot({
-            envFilePath: [
-              join(__dirname, '../config/env/', `.${process.env.NODE_ENV}.env`),
-            ],
-            load: [configuration],
-          }),
-        ],
-        providers: [ConfigService],
-      }).compile();
+      // const moduleRef: TestingModule = await Test.createTestingModule({
+      //   imports: [
+      //     ConfigModule.forRoot({
+      //       envFilePath: [
+      //         join(__dirname, '../config/env/', `.${process.env.NODE_ENV}.env`),
+      //       ],
+      //       load: [configuration],
+      //     }),
+      //   ],
+      //   providers: [ConfigService],
+      // }).compile();
 
-      service = moduleRef.get<ConfigService>(ConfigService);
-      conn = await mongoose.connect(service.get<string>('MONGO_DSN'));
+      // service = moduleRef.get<ConfigService>(ConfigService);
+      // conn = await mongoose.connect(service.get<string>('MONGO_DSN'));
+      conn = await mongoose.connect(uri);
     });
 
     afterEach(async () => {
       await conn.disconnect();
     });
 
-    it('should be defined', () => {
-      expect(service).toBeDefined();
-    });
+    // it('should be defined', () => {
+    //   expect(service).toBeDefined();
+    // });
 
     it('create a tweet document', async () => {
       const TweetModel = conn.model('Tweet', TweetSchema);

@@ -48,15 +48,17 @@ Use o arquivo `api.http` para testar a publicação usando a extensão Rest Clie
 - Monta exemplo uilizando o Google Artifact Registry / (GCR-Google Container Registry) e Google Cloud Run como
 - Container Registry.
 
-# Build da imagem para PRODUÇÃO no ambiente local [apenas para teste]
+# Build da imagens para teste
 
 ```bash
+docker image prune  #Remove all unused images
+
 docker build -t nestjs-api -f Dockerfile.dev .
 docker ps -a | grep nestjs-api
 docker rm imersao-fullcycle10-nestjs-tests-mongo-express-1 imersao-fullcycle10-nestjs-tests-db-1
 
 docker image ls | grep nestjs-api
-docker rmi nestjs-api
+docker rmi nestjs-api imersao-fullcycle10-nestjs-tests-app_prod imersao-fullcycle10-nestjs-tests-app
 
 docker build -t nestjs-api -f Dockerfile.prod .
 docker image ls | grep nestjs-api
@@ -73,6 +75,11 @@ docker image ls | grep nestjs-api
 # Subir o ambiente e compilar a aplicação
 
 ```bash
+# Clean, Compile and List directory as a tree
+rm -rf dist && npm run build && cd ./dist && find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/| - \1/"
+find | sed 's|[^/]*/|- |g'                                              # List all files as a tree
+
+
 docker compose -f docker-compose.dev.yaml down            #Destruir o ambiente
 docker compose -f docker-compose.dev.yaml up -d           #Subir o ambiente com terminal detachado
 docker compose -f docker-compose.dev.yaml up --build      #Subir o ambiente compilando a aplicação

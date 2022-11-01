@@ -20,7 +20,6 @@ env:
   IMAGE_NAME: nestjs-api-366618/nest
   SERVICE: nest
   REGION: us-central1
-  PROJECT_ID: nestjs-api-366618
   # IMAGE_NAME: ${{ github.repository }}
   # github.repository as <account>/<repo>
 

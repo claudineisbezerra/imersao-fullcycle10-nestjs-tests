@@ -16,6 +16,7 @@ async function bootstrap() {
   console.log('main NODE_ENV:', configService.get<string>('NODE_ENV'));
   console.log('main DB_HOST:', configService.get<string>('DB_HOST'));
   console.log('main DB_NAME:', configService.get<string>('DB_NAME'));
+  console.log('main MONGO_DSN:', configService.get<string>('MONGO_DSN'));
 
   Logger.log(
     `App is running in ${stage} stage, and it is listening at: http://${appHost}:${appPort}`,

@@ -11,16 +11,19 @@ describe('TweetsService', () => {
   let configService: ConfigService;
 
   beforeEach(async () => {
+    const uri = `mongodb://root:root@db:27017/tweets_service_test?authSource=admin`;
+    // const uri = `mongodb://root:root@db_prod:27017/tweets_service_test?authSource=admin`;
     module = await Test.createTestingModule({
       imports: [
         AppModule,
-        MongooseModule.forRootAsync({
-          imports: [ConfigModule],
-          useFactory: async (configService: ConfigService) => ({
-            uri: configService.get<string>('MONGO_DSN'),
-          }),
-          inject: [ConfigService],
-        }),
+        MongooseModule.forRoot(uri),
+        // MongooseModule.forRootAsync({
+        //   imports: [ConfigModule],
+        //   useFactory: async (configService: ConfigService) => ({
+        //     uri: configService.get<string>('MONGO_DSN'),
+        //   }),
+        //   inject: [ConfigService],
+        // }),
         MongooseModule.forFeature([{ name: Tweet.name, schema: TweetSchema }]),
       ],
       providers: [TweetsService, ConfigService],
