@@ -45,10 +45,11 @@ jobs:
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
-        # uses: sigstore/cosign-installer@main #v2.6.0
+        # uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
+        uses: sigstore/cosign-installer@main
+        # apk add cosign
         with:
-          cosign-release: 'v1.11.0' # optional
+          cosign-release: 'v1.13.1' # optional
           
       # Check sigstore/cosign installation
       - name: Check install!
@@ -91,8 +92,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          # cache-from: type=gha
-          # cache-to: type=gha,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # - name: Up containers
       #   run: docker compose -f docker-compose.prod.yaml up -d
@@ -126,11 +127,13 @@ jobs:
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
+        run: xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
         env:
           COSIGN_EXPERIMENTAL: 'true'
         # This step uses the identity token to provision an ephemeral certificate
+        # Sign the images with GitHub OIDC Token **not production ready**
         # against the sigstore community Fulcio instance.
-        run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
+        # run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
 
   # cd:
   #   needs: ci
