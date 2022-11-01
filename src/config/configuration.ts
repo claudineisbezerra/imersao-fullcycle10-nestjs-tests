@@ -20,5 +20,6 @@ export const configuration = () => ({
   DB_AUTH_SOURCE: dbAuthSource,
   // MONGO_DSN: `mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=${dbAuthSource}`,
   // MONGO_DSN: 'mongodb://root:root@db_prod:27017/tweets?authSource=admin',
-  MONGO_DSN: 'mongodb://root:root@db:27017/tweets?authSource=admin',
+  // MONGO_DSN: 'mongodb://root:root@db:27017/tweets?authSource=admin',
+  MONGO_DSN: 'mongodb://root:root@db_prod:27017/tweets?authSource=admin',
 });

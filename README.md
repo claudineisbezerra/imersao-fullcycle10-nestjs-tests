@@ -76,6 +76,7 @@ docker image ls | grep nestjs-api
 
 ```bash
 # Clean, Compile and List directory as a tree
+chmod +x .docker/start.sh #Permissão de execução no arquivo
 rm -rf dist && npm run build && cd ./dist && find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/| - \1/"
 find | sed 's|[^/]*/|- |g'                                              # List all files as a tree
 

@@ -11,8 +11,8 @@ describe('TweetsService', () => {
   let configService: ConfigService;
 
   beforeEach(async () => {
-    const uri = `mongodb://root:root@db:27017/tweets_service_test?authSource=admin`;
-    // const uri = `mongodb://root:root@db_prod:27017/tweets_service_test?authSource=admin`;
+    // const uri = `mongodb://root:root@db:27017/tweets_service_test?authSource=admin`;
+    const uri = `mongodb://root:root@db_prod:27017/tweets_service_test?authSource=admin`;
     module = await Test.createTestingModule({
       imports: [
         AppModule,

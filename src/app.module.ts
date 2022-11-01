@@ -13,7 +13,8 @@ import { TweetsModule } from './tweets/tweets.module';
 console.log(join(__dirname));
 console.log(join(__dirname, '../config/env/'));
 console.log(join(__dirname, '../config/env/', `.${process.env.NODE_ENV}.env`));
-const uri = 'mongodb://root:root@db:27017/tweets?authSource=admin';
+const uri = 'mongodb://root:root@db_prod:27017/tweets?authSource=admin';
+// const uri = 'mongodb://root:root@db:27017/tweets?authSource=admin';
 // const uri = 'mongodb://root:root@localhost:27017/tweets?authSource=admin';
 @Module({
   imports: [
