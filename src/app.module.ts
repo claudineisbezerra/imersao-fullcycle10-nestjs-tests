@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { configuration } from '../config/configuration';
-import { validationSchema } from '../config/validation';
+import { configuration } from './config/configuration';
+import { validationSchema } from './config/validation';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,7 +13,7 @@ import { TweetsModule } from './tweets/tweets.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: [
-        join(__dirname, '../config/env/', `.${process.env.NODE_ENV}.env`),
+        join(__dirname, './config/env/', `.${process.env.NODE_ENV}.env`),
       ],
       isGlobal: true,
       load: [configuration],

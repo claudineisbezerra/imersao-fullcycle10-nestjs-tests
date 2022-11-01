@@ -59,6 +59,9 @@ docker image ls | grep nestjs-api
 docker rmi nestjs-api
 
 docker build -t nestjs-api -f Dockerfile.prod .
+docker image ls | grep nestjs-api
+docker rmi nestjs-api
+
 ```
 
 # Verifica a criação de imagem recem criada
@@ -76,11 +79,14 @@ docker compose -f docker-compose.dev.yaml up --build      #Subir o ambiente comp
 docker compose -f docker-compose.dev.yaml up -d --build   #Subir o ambiente com terminal detachado compilando a aplicação
 docker compose -f docker-compose.dev.yaml --profile development up --build #Cria o ambiente baseado em profile
 
-
 docker compose -f docker-compose.dev.yaml exec app bash
 npm run start:dev
 
 
+docker compose -f docker-compose.prod.yaml down
 docker compose -f docker-compose.prod.yaml up
 docker compose -f docker-compose.prod.yaml up --build
+
+docker compose -f docker-compose.prod.yaml exec app_prod bash
+npm run start:prod
 ```

@@ -1,5 +1,5 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configuration } from '../../../config/configuration';
+import { configuration } from '../../config/configuration';
 import mongoose from 'mongoose';
 import { Tweet, TweetSchema } from './tweet.entity';
 import { Test, TestingModule } from '@nestjs/testing';

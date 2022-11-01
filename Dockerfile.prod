@@ -17,24 +17,25 @@ COPY --chown=node:node . .
 RUN npm run build
 
 # Multistage - Descartar [Total ou em partes] os builds anteriores
-ENV NODE_ENV=production
-CMD [ "npm", "run", "start:prod" ]
-
-FROM node:16.16.0-slim as production
-
-USER node
-
-RUN mkdir -p /home/node/app
-
-WORKDIR /home/node/app
-
-COPY --from=testing --chown=node:node /home/node/app/package*.json ./
-# RUN npm ci -> Faz instalações mais eficientes a partir do package-lock.json neste passo somente prod
-RUN npm ci --omit=dev
-
-COPY --from=testing --chown=node:node /home/node/app .
-
 EXPOSE 3000
-
 ENV NODE_ENV=production
 CMD [ "npm", "run", "start:prod" ]
+
+# FROM node:16.16.0-slim as production
+
+# USER node
+
+# RUN mkdir -p /home/node/app
+
+# WORKDIR /home/node/app
+
+# COPY --from=testing --chown=node:node /home/node/app/package*.json ./
+# # RUN npm ci -> Faz instalações mais eficientes a partir do package-lock.json neste passo somente prod
+# RUN npm ci --omit=dev
+
+# COPY --from=testing --chown=node:node /home/node/app .
+
+# EXPOSE 3000
+
+# ENV NODE_ENV=production
+# CMD [ "npm", "run", "start:prod" ]
