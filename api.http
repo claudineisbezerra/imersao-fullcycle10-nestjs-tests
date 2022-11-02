@@ -9,6 +9,7 @@ GET http://localhost:3000/tweets/634586dbcef12dae83f3bde3
 
 
 ###
+# POST https://nest-s7bt3jvx6a-uc.a.run.app/tweets
 POST http://localhost:3000/tweets
 Content-Type: application/json
 
