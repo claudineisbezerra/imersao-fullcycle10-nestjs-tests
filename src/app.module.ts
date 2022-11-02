@@ -13,7 +13,7 @@ import { TweetsModule } from './tweets/tweets.module';
 console.log(join(__dirname));
 console.log(join(__dirname, '../config/env/'));
 console.log(join(__dirname, '../config/env/', `.${process.env.NODE_ENV}.env`));
-const uri = 'mongodb://root:root@db_prod:27017/tweets?authSource=admin';
+// const uri = 'mongodb://root:root@db_prod:27017/tweets?authSource=admin';
 // const uri = 'mongodb://root:root@db:27017/tweets?authSource=admin';
 // const uri = 'mongodb://root:root@localhost:27017/tweets?authSource=admin';
 @Module({
@@ -26,14 +26,15 @@ const uri = 'mongodb://root:root@db_prod:27017/tweets?authSource=admin';
       load: [configuration],
       validationSchema,
     }),
-    MongooseModule.forRoot(uri),
-    // MongooseModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   useFactory: async (configService: ConfigService) => ({
-    //     uri: configService.get<string>('MONGO_DSN'),
-    //   }),
-    //   inject: [ConfigService],
-    // }),
+    // MongooseModule.forRoot(uri),
+    // MongooseModule.forRoot(process.env.MONGO_DSN),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_DSN'),
+      }),
+      inject: [ConfigService],
+    }),
     TweetsModule,
   ],
   controllers: [AppController],
