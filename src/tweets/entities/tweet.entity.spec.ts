@@ -25,7 +25,7 @@ describe('Tweet Tests', () => {
     let conn: mongoose.Mongoose;
     // const uri = `mongodb://root:root@db:27017/tweets_entity_test?authSource=admin`;
     // const uri = `mongodb://root:root@localhost:27017/tweets_entity_test?authSource=admin`;
-    // const uri = `mongodb://root:root@db_prod:27017/tweets_entity_test?authSource=admin`;
+    const uri = `mongodb://root:root@db_prod:27017/tweets_entity_test?authSource=admin`;
 
     beforeEach(async () => {
       // const moduleRef: TestingModule = await Test.createTestingModule({
