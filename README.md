@@ -16,6 +16,11 @@ Durante estas 3 aulas, mostramos como:
 - Como montar um ambiente de desenvolvimento com Docker no VSCode satisfazendo necessidades como: backup dos banco de dados de dados em volumes, tmpfs para testes, terminal ZSH dentro do container e Remote Container
 - Como montar uma esteira de CI/CD (Integração Contínua e Deploy Contínuo) usando Github Action, Github Packages, Artifact Registry e Cloud Run
 
+## Steps
+
+- Repositórios - Github Packages -> Nova versão de imagem
+- Repositórios - Google Artifact Registry -> Nova versão de imagem
+
 ## Rodar a aplicação
 
 ```bash

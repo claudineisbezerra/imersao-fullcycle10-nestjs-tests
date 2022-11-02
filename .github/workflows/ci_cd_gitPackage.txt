@@ -15,14 +15,14 @@ on:
 
 env:
   # Use google Artifact Registry(ghcr.io)
-  REGISTRY: gcr.io
-  IMAGE_NAME: nestjs-api-366618/nest
-  SERVICE: nest
-  REGION: us-central1
+  # REGISTRY: gcr.io
+  # IMAGE_NAME: nestjs-api-366618/nest
+  # SERVICE: nest
+  # REGION: us-central1
   # Use docker.io for Docker Hub if empty GHCR - GitHub Container Registry (ghcr.io)
-  # REGISTRY: ghcr.io
+  REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  # IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}
 
 
 jobs:
@@ -66,11 +66,11 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           # Login com as credenciais do Google
-          username: _json_key
-          password: ${{ secrets.GCP_SA_KEY }}
+          # username: _json_key
+          # password: ${{ secrets.GCP_SA_KEY }}
           # Login com as credenciais do Github
-          # username: ${{ github.actor }}
-          # password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
