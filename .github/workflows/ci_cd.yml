@@ -80,44 +80,51 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      # Step to run tests without push (Docker Image Deploy), targeting only 'testing' on Dockerfile.prod
+      # Step to run tests without pushing Docker Image Created (push: false),
+      # targeting only 'testing' stage defined in Dockerfile.prod
       - name: Build for testing
-        # id: build-for-testing
-        id: build-and-push
+        id: build-for-testing
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: .
           file: ./Dockerfile.prod
-          push: ${{ github.event_name != 'pull_request' }}
+          push: false
+          target: testing
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Levanta o ambiente - com o propósito de testar - sem travar o terminal (-d)
+      - name: Up containers for testing
+        run: docker compose -f docker-compose.prod.yaml up -d
+
+      # Aguarda até que o ambiente esteja no ar. Preciso saber quando o docker estará disponível.
+      # Esta ação está disponível no repositório wait-for
+      - name: Waiting environment to be ready
+        run: wget -qO- https://raw.githubusercontent.com/eficode/wait-for/v2.1.3/wait-for | sh -s -- http://localhost:3000 -- echo success
+
+      # Uma vez que o ambiente esteja disponível:
+      # Executo meus testes no container app_prod (pré compilado nos steps anteriores).
+      # Então ao executar docker-compose.prod.yaml novamente, somente o container db_prod será criado.
+      # (-T) evita que meu terminal não dê erros na hora de execução dos testes
+      - name: Running tests
+        run: docker compose -f docker-compose.prod.yaml exec -T app_prod sh -c "npm run test"
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          context: .
+          file: ./Dockerfile.prod
+          target: production
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      # - name: Up containers
-      #   run: docker compose -f docker-compose.prod.yaml up -d
-
-      # - name: Waiting environment to be ready
-      #   run: wget -qO- https://raw.githubusercontent.com/eficode/wait-for/v2.1.3/wait-for | sh -s -- http://localhost:3000 -- echo success
-
-      # - name: Running tests
-      #   run: docker compose -f docker-compose.prod.yaml exec -T app_prod sh -c "npm run test"
-
-      # # Build and push Docker image with Buildx (don't push on PR)
-      # # https://github.com/docker/build-push-action
-      # - name: Build and push Docker image
-      #   id: build-and-push
-      #   uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   with:
-      #     context: .
-      #     file: ./Dockerfile.prod
-      #     target: production
-      #     push: true
-      #     tags: ${{ steps.meta.outputs.tags }}
-      #     labels: ${{ steps.meta.outputs.labels }}
-      #     cache-from: type=gha
-      #     cache-to: type=gha,mode=max
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker

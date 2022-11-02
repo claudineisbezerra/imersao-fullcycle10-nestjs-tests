@@ -95,6 +95,9 @@ docker compose -f docker-compose.dev.yaml --profile development up --build #Cria
 docker compose -f docker-compose.dev.yaml exec app bash
 npm run start:dev
 
+#Executa somente o estágio de testing definido em Dockerfile.prod
+STAGE=testing docker compose -f docker-compose.prod.yaml up
+STAGE=production docker compose -f docker-compose.prod.yaml up
 
 docker compose -f docker-compose.prod.yaml down
 docker compose -f docker-compose.prod.yaml up
