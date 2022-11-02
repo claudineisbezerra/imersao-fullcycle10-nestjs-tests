@@ -3,7 +3,7 @@ const appHost = process.env.APP_HOST || 'localhost';
 const appPort = parseInt(process.env.PORT, 10) || 3000;
 const dbUser = process.env.DB_USER || 'root';
 const dbPassword = process.env.DB_PASSWORD || 'root';
-const dbHost = process.env.DB_HOST || 'db';
+const dbHost = process.env.DB_HOST || 'db_prod';
 const dbPort = parseInt(process.env.DB_PORT, 10) || 27017;
 const dbName = process.env.DB_NAME || 'tweets';
 const dbAuthSource = process.env.DB_AUTH_SOURCE || 'admin';
@@ -18,8 +18,8 @@ export const configuration = () => ({
   DB_PORT: dbPort,
   DB_NAME: dbName,
   DB_AUTH_SOURCE: dbAuthSource,
-  // MONGO_DSN: `mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=${dbAuthSource}`,
+  MONGO_DSN: `mongodb://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}?authSource=${dbAuthSource}`,
   // MONGO_DSN: 'mongodb://root:root@db_prod:27017/tweets?authSource=admin',
   // MONGO_DSN: 'mongodb://root:root@db:27017/tweets?authSource=admin',
-  MONGO_DSN: 'mongodb://root:root@db_prod:27017/tweets?authSource=admin',
+  // MONGO_DSN: 'mongodb://root:root@db_prod:27017/tweets?authSource=admin',
 });
